@@ -6,7 +6,7 @@
 ///*
 //import java.util.Scanner;
 //
-//public class Main {
+//public class StacksQueuesHeaps.Main {
 //
 //
 //    public static void main(String[] args) {
