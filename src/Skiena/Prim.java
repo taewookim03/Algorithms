@@ -1,0 +1,6 @@
+package Skiena;
+
+class Prim {
+
+
+}
