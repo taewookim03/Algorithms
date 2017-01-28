@@ -1,36 +1,35 @@
-package Skiena;
+package LinkedList;
 
 import java.util.PriorityQueue;
 import java.util.Queue;
 
-class ListNode{
-    int val;
-    ListNode next;
 
-    ListNode(int val){
-        this.val = val;
-    }
-}
+class mergeKlists {
+    static class ListNode{
+        int val;
+        ListNode next;
 
-class LinkedList{
-    ListNode head;
-    void add(int i){
-        ListNode node = new ListNode(i);
-        node.next = head;
-        head = node;
-    }
-    void print(){
-        ListNode node = head;
-        while (node != null){
-            System.out.print(node.val + " ");
-            node = node.next;
+        ListNode(int val){
+            this.val = val;
         }
-        System.out.println();
     }
-}
 
-
-class Solution {
+    static class LinkedList{
+        ListNode head;
+        void add(int i){
+            ListNode node = new ListNode(i);
+            node.next = head;
+            head = node;
+        }
+        void print(){
+            ListNode node = head;
+            while (node != null){
+                System.out.print(node.val + " ");
+                node = node.next;
+            }
+            System.out.println();
+        }
+    }
     static ListNode mergeKLists(ListNode[] lists){
         Queue<ListNode> minHeap = new PriorityQueue<ListNode>((a, b) -> a.val - b.val);
 

@@ -1,5 +1,3 @@
-package Skiena;
-
 class scracth{
 
     static int gcd(int a, int b){
@@ -22,6 +20,7 @@ class scracth{
     }
 
     public static void main(String[] args){
-        perm("abc", "");
+        //perm("abc", "");
+        System.out.println(-50 % 100);
     }
 }
