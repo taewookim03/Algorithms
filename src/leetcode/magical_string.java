@@ -10,7 +10,7 @@ public class magical_string {
         public int magicalString(int n) {
             StringBuilder sb = new StringBuilder();
             sb.append("1");
-            int ones = 1;
+            int ones = 1;//count 1s
             int lengthIndex = 1;
             while (sb.length() < n){
                 if (sb.charAt(sb.length()-1) == '1'){

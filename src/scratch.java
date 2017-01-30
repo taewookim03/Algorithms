@@ -1,34 +1,43 @@
-class scracth{
+import java.util.Random;
 
-    static int magicalString(int n) {
-        StringBuilder sb = new StringBuilder();
-        sb.append("1");
-        int lengthIndex = 1;
-        while (sb.length() < n){
-            if (sb.charAt(sb.length()-1) == '1'){
-                sb.append('2');
-            }
-            else{
-                sb.append('1');
-            }
-
-            if (sb.charAt(lengthIndex) == '2'){
-                sb.append(sb.charAt(sb.length()-1));//extend length
-            }
-            lengthIndex++;
-        }
-
-        //check length and cut off last if needed
-        if (sb.length() > n){
-            sb.deleteCharAt(sb.length()-1);
-        }
-
-        System.out.println(sb.toString());
-        return 1;
+class scratch{
+    scratch(ListNode head){
+        this.head = head;
     }
+    ListNode head;
+    static class ListNode{
+        int val;
+        ListNode next;
+        ListNode(int x){
+            val = x;
+        }
+    }
+    int getRandom(){
+        //count length
+        ListNode curr = head;
+        int count = 0;
+        while (curr != null){
+            count++;
+            curr = curr.next;
+        }
 
+        curr = head;
+        Random random = new Random();
+        while (curr != null){
+            if (random.nextInt(count--) == 0){
+                return curr.val;
+            }
+            curr = curr.next;
+        }
+        return -1;
+    }
     public static void main(String[] args){
-        //perm("abc", "");
-        magicalString(10);
+        ListNode head = new ListNode(1);
+        head.next = new ListNode(2);
+        head.next.next = new ListNode(3);
+        scratch scratch = new scratch(head);
+        for (int i = 0; i < 100; i++){
+            System.out.println(scratch.getRandom());
+        }
     }
 }
