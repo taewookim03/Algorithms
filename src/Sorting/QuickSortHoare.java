@@ -37,6 +37,7 @@ class QuickSortHoare {
 
     public static void main(String[] args){
         int[] arr = new int[]{0, -1, 4, 2, 3, 2, 2, 6, 4, 8, 2, 1, 2, 2, 6, 5};
+        //int[] arr = new int[]{3, 1, 2};
         quicksort(arr);
         for (int i : arr){
             System.out.print(i + " ");

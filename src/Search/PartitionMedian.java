@@ -1,4 +1,4 @@
-package Arrays;
+package Search;
 
 import java.util.Random;
 
