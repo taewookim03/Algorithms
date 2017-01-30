@@ -1,11 +1,11 @@
-package leetcode;
+package Search;
 
 import java.util.ArrayList;
 
 /**
  * Created by Taewoo Kim on 1/28/2017.
  */
-public class scratch {
+public class kselect_hoare {
     static public class Solution {
         public int minMoves2(int[] nums) {
             if (nums.length == 1) return 0;

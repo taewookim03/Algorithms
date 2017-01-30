@@ -1,26 +1,34 @@
 class scracth{
 
-    static int gcd(int a, int b){
-        //base case
-        if (b == 0) return a;
-        //if (a%b == 0) return b;
-        return gcd(b, a%b);
-    }
+    static int magicalString(int n) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("1");
+        int lengthIndex = 1;
+        while (sb.length() < n){
+            if (sb.charAt(sb.length()-1) == '1'){
+                sb.append('2');
+            }
+            else{
+                sb.append('1');
+            }
 
-    static void perm(String str, String prefix){
-        if (str.isEmpty()){
-            System.out.println(prefix);
-            return;
+            if (sb.charAt(lengthIndex) == '2'){
+                sb.append(sb.charAt(sb.length()-1));//extend length
+            }
+            lengthIndex++;
         }
 
-        for (int i = 0; i < str.length(); i++){
-            char c = str.charAt(i);
-            perm(str.substring(0, i) + str.substring(i + 1), prefix + c);
+        //check length and cut off last if needed
+        if (sb.length() > n){
+            sb.deleteCharAt(sb.length()-1);
         }
+
+        System.out.println(sb.toString());
+        return 1;
     }
 
     public static void main(String[] args){
         //perm("abc", "");
-        System.out.println(-50 % 100);
+        magicalString(10);
     }
 }
