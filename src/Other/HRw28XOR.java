@@ -10,7 +10,7 @@ class Solution {
     static int msb(long n){
         //0-index bit position of the most significant bit
         int b = 0;
-        while (1 <= (n >>= 1)){
+        while (1 <= (n >>>= 1)){
             b++;
         }
         return b;
