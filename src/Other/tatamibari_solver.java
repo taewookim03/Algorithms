@@ -1,6 +1,28 @@
 package Other;
 import java.util.*;
 
+/*
+Problem: Implement an algorithm to solve a Tatamibari puzzle (see rules here: http://www.janko.at/Raetsel/Nikoli/Tatamibari.htm)
+Input is a n x m 2d char array representing a board of size n x m.
+
+Sample input:
+{
+    {' ','+',' ','-'},
+    {' ',' ','-',' '},
+    {'|',' ','-',' '},
+    {' ',' ',' ',' '}
+};
+Expected output (formatting doesn't matter):
+    1 1 2 2
+    1 1 3 3
+    4 5 5 5
+    4 5 5 5
+
+where each number represents a different rectangle
+numbers don't have to be ordered or be in range [1 ... number of Regions]
+ */
+
+
 /**
  * straightforward tatamibari solving algorithm using backtracking (a la common sudoku solving algorithm)
  */
