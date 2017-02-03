@@ -34,7 +34,6 @@ public class tatamibari_solver {
     static class Region{
         Position p1, p2;//p1 is upper left corner (0,0 at upper left), p2 is lower right
         int label;
-//        char sign;
         Region(Position p1, Position p2, int label) {
             this.p1 = p1;
             this.p2 = p2;
@@ -77,10 +76,48 @@ public class tatamibari_solver {
             {0, 0, -1, 1}//down
     };
 
+    static void prettifyMap(int[][] regionMap){
+        //use dfs to make region labels ordered and small
+        int n = regionMap.length;
+        int m = regionMap[0].length;
+        boolean[][] visited = new boolean[n][m];
+        int label = 0;
+        for (int i = 0; i < n; i++){
+            for (int j = 0; j < m; j++){
+                if (!visited[i][j]){
+                    prettifyDFS(i, j, regionMap, visited, regionMap[i][j], ++label);
+                }
+            }
+        }
+
+    }
+    static void prettifyDFS(int row, int col, int[][] regionMap, boolean[][] visited, int prevLabel, int label){
+        visited[row][col] = true;
+        regionMap[row][col] = label;
+        int[][] dir = new int[][]{
+                {-1, 0},//up
+                {1, 0},//down
+                {0, -1},//left
+                {0, 1}//right
+        };
+
+        int n = regionMap.length;
+        int m = regionMap[0].length;
+
+        for (int d = 0; d < dir.length; d++){
+            int i = row + dir[d][0];
+            int j = col + dir[d][1];
+            if (i >= 0 && i < n && j >= 0 && j < m && !visited[i][j] && regionMap[i][j] == prevLabel){
+                prettifyDFS(i, j, regionMap, visited, prevLabel, label);
+            }
+        }
+
+    }
+
     static void printMap(int[][] regionMap){
         for (int i = 0; i < regionMap.length; i++){
             for (int j = 0; j < regionMap[0].length; j++){
-                System.out.format("%10d", regionMap[i][j]);
+                System.out.format("%4d", regionMap[i][j]);
             }
             System.out.println();
         }
@@ -93,6 +130,7 @@ public class tatamibari_solver {
         int[][] regionMap = new int[n][m];
 
         findSolution(board, regionMap);
+        prettifyMap(regionMap);
         printMap(regionMap);
     }
 
@@ -155,8 +193,7 @@ public class tatamibari_solver {
             return getAvailVerRects(board, regionMap, sign);
         }
         else {
-            System.out.println("ERROR - NO REGIONS AVAILABLE FOR AN EMPTY/INVALID SIGN");
-            return null;
+            throw new RuntimeException("NO REGIONS AVAILABLE FOR AN EMPTY/INVALID SIGN");
         }
     }
     static Set<Region> getAvailSquares(char[][] board, int[][] regionMap, Position sign){
@@ -348,14 +385,7 @@ public class tatamibari_solver {
         4 5 5 5
 
         where each number represents a different region
-        numbers don't have to be ordered
+        numbers don't have to be ordered or even be in range [1 ... number of Regions]
          */
-
-        //testing Region.expand()
-//        Region r = new Region(new Position(1, 1), new Position(2, 2), 5);
-//        System.out.println(r.expand(1, 0, 0, 0));
-//        System.out.println(r.expand(0, 0, 1, -1));
-
-
     }
 }
