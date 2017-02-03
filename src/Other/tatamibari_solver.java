@@ -148,7 +148,7 @@ public class tatamibari_solver {
         //optimization: choose + signs first because of fewer choices to limit recursion growth
         for (int i = 0; i < n; i++){
             for (int j = 0; j < m; j++){
-                if (board[i][j] != ' ' && regionMap[i][j] == 0){//if cell has a + sign and is not assigned a region
+                if (board[i][j] == '+' && regionMap[i][j] == 0){//if cell has a + sign and is not assigned a region
                     Set<Region> avail = getAvailRegions(board, regionMap, new Position(i, j));
                     //System.out.println(avail.size());
                     for (Region r : avail){
@@ -162,21 +162,20 @@ public class tatamibari_solver {
                 }
             }
         }
-//        for (int i = 0; i < n; i++){
-//            for (int j = 0; j < m; j++){
-//                if (board[i][j] != ' ' && regionMap[i][j] == 0){//if cell has a sign and is not assigned a region
-//                    Set<Region> avail = getAvailRegions(board, regionMap, new Position(i, j));
-//                    for (Region r : avail){
-//                        setRegion(regionMap, r, r.label);
-//                        if (isSolved(regionMap)){
-//                            solved = true;
-//                            return;
-//                        }
-//                        setRegion(regionMap, r, 0);
-//                    }
-//                }
-//            }
-//        }
+        //now look for - and | tiles
+        for (int i = 0; i < n; i++){
+            for (int j = 0; j < m; j++){
+                if (board[i][j] != ' ' && regionMap[i][j] == 0){//if cell has a sign and is not assigned a region
+                    Set<Region> avail = getAvailRegions(board, regionMap, new Position(i, j));
+                    for (Region r : avail){
+                        setRegion(regionMap, r, r.label);
+                        findSolution(board, regionMap);
+                        if (solved) return;
+                        setRegion(regionMap, r, 0);
+                    }
+                }
+            }
+        }
     }
 
     static Set<Region> getAvailRegions(char[][] board, int[][] regionMap, Position sign){
