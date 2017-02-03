@@ -12,7 +12,7 @@ Sample input:
     {'|',' ','-',' '},
     {' ',' ',' ',' '}
 };
-Expected output (formatting doesn't matter):
+Expected output:
     1 1 2 2
     1 1 3 3
     4 5 5 5
@@ -26,10 +26,10 @@ numbers don't have to be ordered or be in range [1 ... number of Regions]
 /**
  * straightforward tatamibari solving algorithm using backtracking (a la common sudoku solving algorithm)
  */
-public class tatamibari_solver {
-    static boolean solved = false;
-    static int numRegions = 0;
-    static class Position{
+public class TatamibariSolver {
+    boolean solved = false;
+    int numRegions = 0;
+    class Position{
         int row, col;
         Position(int row, int col){
             this.row = row;
@@ -53,7 +53,7 @@ public class tatamibari_solver {
             return h;
         }
     }
-    static class Region{
+    class Region{
         Position p1, p2;//p1 is upper left corner (0,0 at upper left), p2 is lower right
         int label;
         Region(Position p1, Position p2, int label) {
@@ -98,7 +98,7 @@ public class tatamibari_solver {
             {0, 0, -1, 1}//down
     };
 
-    static void prettifyMap(int[][] regionMap){
+    void prettifyMap(int[][] regionMap){
         //use dfs to make region labels ordered and small
         int n = regionMap.length;
         int m = regionMap[0].length;
@@ -113,7 +113,7 @@ public class tatamibari_solver {
         }
 
     }
-    static void prettifyDFS(int row, int col, int[][] regionMap, boolean[][] visited, int prevLabel, int label){
+    void prettifyDFS(int row, int col, int[][] regionMap, boolean[][] visited, int prevLabel, int label){
         visited[row][col] = true;
         regionMap[row][col] = label;
         int[][] dir = new int[][]{
@@ -136,7 +136,7 @@ public class tatamibari_solver {
 
     }
 
-    static void printMap(int[][] regionMap){
+    void printMap(int[][] regionMap){
         for (int i = 0; i < regionMap.length; i++){
             for (int j = 0; j < regionMap[0].length; j++){
                 System.out.format("%4d", regionMap[i][j]);
@@ -145,7 +145,7 @@ public class tatamibari_solver {
         }
     }
 
-    static void printSolution(char[][] board){
+    void printSolution(char[][] board){
         int n = board.length;//number of rows
         int m = board[0].length;//number of columns
         //solution is represented as a 2d array of ints. initialized 0 (empty), and each number represents a different region
@@ -156,7 +156,7 @@ public class tatamibari_solver {
         printMap(regionMap);
     }
 
-    static void findSolution(char[][] board, int[][] regionMap){
+    void findSolution(char[][] board, int[][] regionMap){
         if (solved) return;
         //check if solved
         if (isSolved(regionMap)){
@@ -200,7 +200,7 @@ public class tatamibari_solver {
         }
     }
 
-    static Set<Region> getAvailRegions(char[][] board, int[][] regionMap, Position sign){
+    Set<Region> getAvailRegions(char[][] board, int[][] regionMap, Position sign){
         int r = sign.row;
         int c = sign.col;
         switch (board[r][c]){
@@ -210,7 +210,7 @@ public class tatamibari_solver {
             default: throw new RuntimeException("NO REGIONS AVAILABLE FOR AN EMPTY/INVALID SIGN");
         }
     }
-    static Set<Region> getAvailSquares(char[][] board, int[][] regionMap, Position sign){
+    Set<Region> getAvailSquares(char[][] board, int[][] regionMap, Position sign){
         int label = numRegions++;
         Set<Region> regions = new HashSet<>();
 
@@ -226,7 +226,7 @@ public class tatamibari_solver {
 
         return regions;
     }
-    static Set<Region> getAvailHorRects(char[][] board, int[][] regionMap, Position sign){
+    Set<Region> getAvailHorRects(char[][] board, int[][] regionMap, Position sign){
         int label = numRegions++;
         Set<Region> regions = new HashSet<>();
 
@@ -244,7 +244,7 @@ public class tatamibari_solver {
 
         return regions;
     }
-    static Set<Region> getAvailVerRects(char[][] board, int[][] regionMap, Position sign){
+     Set<Region> getAvailVerRects(char[][] board, int[][] regionMap, Position sign){
         int label = numRegions++;
         Set<Region> regions = new HashSet<>();
 
@@ -262,7 +262,7 @@ public class tatamibari_solver {
 
         return regions;
     }
-    static void expandRegions(char[][] board, int[][] regionMap, Position sign, Set<Region> regions){
+    void expandRegions(char[][] board, int[][] regionMap, Position sign, Set<Region> regions){
         Set<Region> toAdd;
         do {
             toAdd = new HashSet<>();
@@ -288,7 +288,7 @@ public class tatamibari_solver {
         } while (!toAdd.isEmpty());
     }
 
-    static boolean isValidNewRegion(char[][] board, int[][] regionMap, Region region, Position sign){
+    boolean isValidNewRegion(char[][] board, int[][] regionMap, Region region, Position sign){
         //a new region is only valid if it contains exactly 1 symbol and the cells are currently not occupied
         //by any other region (i.e. 0) AND does not violate the corner law
         int n = board.length;
@@ -328,7 +328,7 @@ public class tatamibari_solver {
     }
 
     //checks if a corner is valid (4 regions cannot share a corner)
-    static boolean isValidCorner(int[][] regionMap, Position p){
+    boolean isValidCorner(int[][] regionMap, Position p){
         //corner index is the tile to the lower left of the corner (corner is i,j tile's upper left corner)
 
         //check if corner is along the wall (valid)
@@ -351,7 +351,7 @@ public class tatamibari_solver {
         return surroundingRegions.contains(0);
     }
 
-    static boolean isSolved(int[][] regionMap){
+    boolean isSolved(int[][] regionMap){
         for (int i = 0; i < regionMap.length; i++){
             for (int j = 0; j < regionMap[0].length; j++){
                 if (regionMap[i][j] == 0) return false;
@@ -360,7 +360,7 @@ public class tatamibari_solver {
         return true;
     }
 
-    static void setRegion(int[][] regionMap, Region region, int label){
+    void setRegion(int[][] regionMap, Region region, int label){
         Position p1 = region.p1;
         Position p2 = region.p2;
         int r1 = p1.row;
@@ -378,6 +378,7 @@ public class tatamibari_solver {
 
     //driver function to test
     public static void main(String[] args){
+        TatamibariSolver solver = new TatamibariSolver();
         char[][] board = new char[][]{
                 {' ','+',' ','-'},
                 {' ',' ','-',' '},
@@ -385,7 +386,7 @@ public class tatamibari_solver {
                 {' ',' ',' ',' '}
         };
 
-        printSolution(board);
+        solver.printSolution(board);
         /*
         expected:
         1 1 2 2

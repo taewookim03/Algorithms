@@ -38,11 +38,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="scratch.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="scratch.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/scratch.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="238">
-              <caret line="14" column="32" lean-forward="true" selection-start-line="14" selection-start-column="32" selection-end-line="14" selection-end-column="32" />
+            <state relative-caret-position="102">
+              <caret line="6" column="0" lean-forward="true" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="TatamibariSolver.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/Other/TatamibariSolver.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-70">
+              <caret line="377" column="0" lean-forward="true" selection-start-line="377" selection-start-column="0" selection-end-line="377" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -73,7 +83,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/leetcode/scratch.java" />
         <option value="$PROJECT_DIR$/src/Search/PartitionMedian.java" />
         <option value="$PROJECT_DIR$/src/Sorting/QuickSortHoare.java" />
         <option value="$PROJECT_DIR$/src/leetcode/minimum_moves_to_equal_array_elements_ii.java" />
@@ -124,6 +133,7 @@
         <option value="$PROJECT_DIR$/src/scratch.java" />
         <option value="$PROJECT_DIR$/src/leetcode/lowest_common_ancestor_of_a_binary_tree.java" />
         <option value="$PROJECT_DIR$/src/Other/tatamibari_solver.java" />
+        <option value="$PROJECT_DIR$/src/Other/TatamibariSolver.java" />
       </list>
     </option>
   </component>
@@ -252,7 +262,7 @@
       <recent name="C:\Users\Gayming\Documents\Java Projects\Algorithms\src\Skiena_and_random" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.tatamibari_solver">
+  <component name="RunManager" selected="Application.TatamibariSolver">
     <configuration default="false" name="scratch" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <option name="MAIN_CLASS_NAME" value="scratch" />
@@ -308,14 +318,14 @@
       <envs />
       <method />
     </configuration>
-    <configuration default="false" name="tatamibari_solver" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+    <configuration default="false" name="TatamibariSolver" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
         <pattern>
           <option name="PATTERN" value="Other.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="MAIN_CLASS_NAME" value="Other.tatamibari_solver" />
+      <option name="MAIN_CLASS_NAME" value="Other.TatamibariSolver" />
       <option name="VM_PARAMETERS" />
       <option name="PROGRAM_PARAMETERS" />
       <option name="WORKING_DIRECTORY" />
@@ -711,12 +721,12 @@
       <item index="0" class="java.lang.String" itemvalue="Application.scratch" />
       <item index="1" class="java.lang.String" itemvalue="Application.mergeKlists" />
       <item index="2" class="java.lang.String" itemvalue="Application.LRUCache" />
-      <item index="3" class="java.lang.String" itemvalue="Application.tatamibari_solver" />
+      <item index="3" class="java.lang.String" itemvalue="Application.TatamibariSolver" />
       <item index="4" class="java.lang.String" itemvalue="JUnit.scratchTest" />
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Application.tatamibari_solver" />
+        <item index="0" class="java.lang.String" itemvalue="Application.TatamibariSolver" />
         <item index="1" class="java.lang.String" itemvalue="Application.scratch" />
         <item index="2" class="java.lang.String" itemvalue="JUnit.scratchTest" />
         <item index="3" class="java.lang.String" itemvalue="Application.LRUCache" />
@@ -772,7 +782,7 @@
       <workItem from="1485123902516" duration="10334000" />
       <workItem from="1485153953014" duration="106689000" />
       <workItem from="1485652274254" duration="69404000" />
-      <workItem from="1486013948153" duration="24624000" />
+      <workItem from="1486013948153" duration="26006000" />
     </task>
     <servers />
   </component>
@@ -788,10 +798,10 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="543718000" />
+    <option name="totallyTimeSpent" value="545100000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="128" y="63" width="1394" height="905" extended-state="1" />
+    <frame x="128" y="63" width="1394" height="905" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -804,7 +814,7 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.34920636" sideWeight="0.5029985" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4087969" sideWeight="0.4970015" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.4087969" sideWeight="0.4970015" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Properties" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -1274,18 +1284,18 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Other/tatamibari_solver.java">
+    <entry file="file://$PROJECT_DIR$/src/scratch.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="5" column="52" lean-forward="true" selection-start-line="5" selection-start-column="52" selection-end-line="5" selection-end-column="52" />
+        <state relative-caret-position="102">
+          <caret line="6" column="0" lean-forward="true" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/scratch.java">
+    <entry file="file://$PROJECT_DIR$/src/Other/TatamibariSolver.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="14" column="32" lean-forward="true" selection-start-line="14" selection-start-column="32" selection-end-line="14" selection-end-column="32" />
+        <state relative-caret-position="-70">
+          <caret line="377" column="0" lean-forward="true" selection-start-line="377" selection-start-column="0" selection-end-line="377" selection-end-column="0" />
           <folding />
         </state>
       </provider>
