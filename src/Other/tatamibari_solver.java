@@ -203,18 +203,11 @@ public class tatamibari_solver {
     static Set<Region> getAvailRegions(char[][] board, int[][] regionMap, Position sign){
         int r = sign.row;
         int c = sign.col;
-
-        if (board[r][c] == '+'){
-            return getAvailSquares(board, regionMap, sign);
-        }
-        else if (board[r][c] == '-'){
-            return getAvailHorRects(board, regionMap, sign);
-        }
-        else if (board[r][c] == '|'){
-            return getAvailVerRects(board, regionMap, sign);
-        }
-        else {
-            throw new RuntimeException("NO REGIONS AVAILABLE FOR AN EMPTY/INVALID SIGN");
+        switch (board[r][c]){
+            case '+': return getAvailSquares(board, regionMap, sign);
+            case '-': return getAvailHorRects(board, regionMap, sign);
+            case '|': return getAvailVerRects(board, regionMap, sign);
+            default: throw new RuntimeException("NO REGIONS AVAILABLE FOR AN EMPTY/INVALID SIGN");
         }
     }
     static Set<Region> getAvailSquares(char[][] board, int[][] regionMap, Position sign){
@@ -247,9 +240,6 @@ public class tatamibari_solver {
             regions.add(base2);
         }
 
-        //find the longest possible, then try the n(n-1)/2 possible subrectangles
-        //also expand up if possible
-        //use backtracking?
         expandRegions(board, regionMap, sign, regions);
 
         return regions;
@@ -268,9 +258,6 @@ public class tatamibari_solver {
             regions.add(base2);
         }
 
-        //find the longest possible, then try the n(n-1)/2 possible subrectangles
-        //also expand up if possible
-        //use backtracking?
         expandRegions(board, regionMap, sign, regions);
 
         return regions;
@@ -389,6 +376,7 @@ public class tatamibari_solver {
     }
 
 
+    //driver function to test
     public static void main(String[] args){
         char[][] board = new char[][]{
                 {' ','+',' ','-'},
