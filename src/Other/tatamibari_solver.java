@@ -38,6 +38,7 @@ public class tatamibari_solver {
         Region(Position p1, Position p2, int label) {
             this.p1 = p1;
             this.p2 = p2;
+            if (p1.row > p2.row || p1.col > p2.col) throw new RuntimeException("ERROR: INVALID REGION CREATED");
             this.label = label;
         }
         Region expand(int leftInc, int rightInc, int topInc, int bottomInc){
@@ -65,6 +66,25 @@ public class tatamibari_solver {
             return "region (" + p1.row + "," + p1.col + "),(" + p2.row + "," + p2.col + ")";
         }
     }
+    static int[][] expShift = new int[][]{
+            {1, 0, 1, 0},//expand up left
+            {0, 1, 1, 0},//up right
+            {1, 0, 0, 1},//down left
+            {0, 1, 0, 1},//down right
+            {1, -1, 0, 0},//shift left
+            {-1, 1, 0, 0},//right
+            {0, 0, 1, -1},//up
+            {0, 0, -1, 1}//down
+    };
+
+    static void printMap(int[][] regionMap){
+        for (int i = 0; i < regionMap.length; i++){
+            for (int j = 0; j < regionMap[0].length; j++){
+                System.out.format("%10d", regionMap[i][j]);
+            }
+            System.out.println();
+        }
+    }
 
     static void printSolution(char[][] board){
         int n = board.length;//number of rows
@@ -73,10 +93,16 @@ public class tatamibari_solver {
         int[][] regionMap = new int[n][m];
 
         findSolution(board, regionMap);
+        printMap(regionMap);
     }
 
     static void findSolution(char[][] board, int[][] regionMap){
         if (solved) return;
+        //check if solved
+        if (isSolved(regionMap)){
+            solved = true;
+            return;
+        }
 
         int n = board.length;//number of rows
         int m = board[0].length;//number of columns
@@ -84,35 +110,35 @@ public class tatamibari_solver {
         //optimization: choose + signs first because of fewer choices to limit recursion growth
         for (int i = 0; i < n; i++){
             for (int j = 0; j < m; j++){
-                if (board[i][j] == '+' && regionMap[i][j] == 0){//if cell has a + sign and is not assigned a region
-                    numRegions++;//for numbering regions
+                if (board[i][j] != ' ' && regionMap[i][j] == 0){//if cell has a + sign and is not assigned a region
                     Set<Region> avail = getAvailRegions(board, regionMap, new Position(i, j));
+                    //System.out.println(avail.size());
                     for (Region r : avail){
                         //try adding this region
-
-                        //check if solved
-                        if (isSolved(regionMap)){
-                            solved = true;
-                            return;
-                        }
-
+                        setRegion(regionMap, r, r.label);
+                        findSolution(board, regionMap);
+                        if (solved) return;
                         //backtrack
-
+                        setRegion(regionMap, r, 0);
                     }
                 }
             }
         }
-        for (int i = 0; i < n; i++){
-            for (int j = 0; j < m; j++){
-                if (board[i][j] != ' ' && regionMap[i][j] == 0){//if cell has a sign and is not assigned a region
-                    numRegions++;
-                    Set<Region> avail = getAvailRegions(board, regionMap, new Position(i, j));
-                    for (Region r : avail){
-
-                    }
-                }
-            }
-        }
+//        for (int i = 0; i < n; i++){
+//            for (int j = 0; j < m; j++){
+//                if (board[i][j] != ' ' && regionMap[i][j] == 0){//if cell has a sign and is not assigned a region
+//                    Set<Region> avail = getAvailRegions(board, regionMap, new Position(i, j));
+//                    for (Region r : avail){
+//                        setRegion(regionMap, r, r.label);
+//                        if (isSolved(regionMap)){
+//                            solved = true;
+//                            return;
+//                        }
+//                        setRegion(regionMap, r, 0);
+//                    }
+//                }
+//            }
+//        }
     }
 
     static Set<Region> getAvailRegions(char[][] board, int[][] regionMap, Position sign){
@@ -134,69 +160,90 @@ public class tatamibari_solver {
         }
     }
     static Set<Region> getAvailSquares(char[][] board, int[][] regionMap, Position sign){
-        int label = numRegions;
+        int label = numRegions++;
         Set<Region> regions = new HashSet<>();
 
         //smallest region is a 1x1 square
         Region smallest = new Region(sign, sign, label);
         regions.add(smallest);
 
-        //try expanding the square in 4 directions or moving them, and keep repeating on valid configurations until no more
+        //try expanding the square in 4 directions or shifting them, and keep repeating on valid configurations until no more
         //new rectangles are added
         //for each valid square in the regions list, try shifting them in 4 directions (if it shifts out the symbol,
         //it will be detected by the isValidNewRegion check)
-        int[][] sqExpShift = new int[][]{
-                {1, 0, 1, 0},//expand up left
-                {0, 1, 1, 0},//up right
-                {1, 0, 0, 1},//down left
-                {0, 1, 0, 1},//down right
-                {1, -1, 0, 0},//shift left
-                {-1, 1, 0, 0},//right
-                {0, 0, 1, -1},//up
-                {0, 0, -1, 1}//down
-        };
-        int initialCount;
-        do {
-            Set<Region> toAdd = new HashSet<>();
-            initialCount = regions.size();
-            for (Region region : regions){
-                Region base = region;
-                for (int dir = 0; dir < sqExpShift.length; dir++){
-                    int inc = 1;
-                    Region newRegion = base.expand(sqExpShift[dir][0] * inc, sqExpShift[dir][1] * inc,
-                            sqExpShift[dir][2] * inc, sqExpShift[dir][3] * inc);
-                    if (!regions.contains(newRegion) && isValidNewRegion(board, regionMap, newRegion)){
-                        toAdd.add(newRegion);
-                    }
-                }
-            }
-            regions.addAll(toAdd);
-        } while (regions.size() != initialCount);
+        expandRegions(board, regionMap, sign, regions);
 
         return regions;
     }
     static Set<Region> getAvailHorRects(char[][] board, int[][] regionMap, Position sign){
-        int label = numRegions;
+        int label = numRegions++;
         Set<Region> regions = new HashSet<>();
 
-
+        //smallest possible horizontal rectangles
+        Region base1 = new Region(new Position(sign.row, sign.col - 1), sign, label);
+        Region base2 = new Region(sign, new Position(sign.row, sign.col + 1), label);
+        if (isValidNewRegion(board, regionMap, base1, sign)){
+            regions.add(base1);
+        }
+        if (isValidNewRegion(board, regionMap, base2, sign)){
+            regions.add(base2);
+        }
 
         //find the longest possible, then try the n(n-1)/2 possible subrectangles
         //also expand up if possible
         //use backtracking?
-        int[][] horExp = new int[][]{
-                {1, 0, 0, 0},//expand left
-                {0, 1, 0, 0}
-                //how to cover cases like expand left 1, right 2  or expand up down, shift up down?
-        };
+        expandRegions(board, regionMap, sign, regions);
 
-        return null;
+        return regions;
     }
     static Set<Region> getAvailVerRects(char[][] board, int[][] regionMap, Position sign){
-        return null;
+        int label = numRegions++;
+        Set<Region> regions = new HashSet<>();
+
+        //smallest possible horizontal rectangles
+        Region base1 = new Region(new Position(sign.row - 1, sign.col), sign, label);
+        Region base2 = new Region(sign, new Position(sign.row + 1, sign.col), label);
+        if (isValidNewRegion(board, regionMap, base1, sign)){
+            regions.add(base1);
+        }
+        if (isValidNewRegion(board, regionMap, base2, sign)){
+            regions.add(base2);
+        }
+
+        //find the longest possible, then try the n(n-1)/2 possible subrectangles
+        //also expand up if possible
+        //use backtracking?
+        expandRegions(board, regionMap, sign, regions);
+
+        return regions;
+    }
+    static void expandRegions(char[][] board, int[][] regionMap, Position sign, Set<Region> regions){
+        Set<Region> toAdd;
+        do {
+            toAdd = new HashSet<>();
+            for (Region region : regions){
+                Region base = region;
+                for (int dir = 0; dir < expShift.length; dir++){
+                    int inc = 1;
+                    while (true){
+                        Region newRegion = base.expand(expShift[dir][0] * inc, expShift[dir][1] * inc,
+                                expShift[dir][2] * inc, expShift[dir][3] * inc);
+                        if (!regions.contains(newRegion) && !toAdd.contains(newRegion) &&
+                                isValidNewRegion(board, regionMap, newRegion, sign)){
+                            toAdd.add(newRegion);
+                            inc++;
+                        }
+                        else{
+                            break;
+                        }
+                    }
+                }
+            }
+            regions.addAll(toAdd);
+        } while (!toAdd.isEmpty());
     }
 
-    static boolean isValidNewRegion(char[][] board, int[][] regionMap, Region region){
+    static boolean isValidNewRegion(char[][] board, int[][] regionMap, Region region, Position sign){
         //a new region is only valid if it contains exactly 1 symbol and the cells are currently not occupied
         //by any other region (i.e. 0) AND does not violate the corner law
         int n = board.length;
@@ -208,6 +255,11 @@ public class tatamibari_solver {
         int r2 = p2.row;
         int c2 = p2.col;
         int numSigns = 0;
+
+        //check region dimensions
+        char sym = board[sign.row][sign.col];
+        if (sym == '-' && ((r2 - r1) >= (c2 - c1))) return false;
+        else if (sym == '|' && ((r2 - r1) <= (c2 - c1))) return false;
 
         //check for contents
         for (int i = r1; i <= r2; i++){
@@ -263,6 +315,20 @@ public class tatamibari_solver {
         return true;
     }
 
+    static void setRegion(int[][] regionMap, Region region, int label){
+        Position p1 = region.p1;
+        Position p2 = region.p2;
+        int r1 = p1.row;
+        int c1 = p1.col;
+        int r2 = p2.row;
+        int c2 = p2.col;
+
+        for (int i = r1; i <= r2; i++){
+            for (int j = c1; j <= c2; j++){
+                regionMap[i][j] = label;
+            }
+        }
+    }
 
 
     public static void main(String[] args){
@@ -273,7 +339,7 @@ public class tatamibari_solver {
                 {' ',' ',' ',' '}
         };
 
-        //printSolution(board);
+        printSolution(board);
         /*
         expected:
         1 1 2 2
@@ -286,10 +352,10 @@ public class tatamibari_solver {
          */
 
         //testing Region.expand()
-        Region r = new Region(new Position(1, 1), new Position(2, 2), 5);
-        System.out.println(r.expand(1, 0, 0, 0));
-        System.out.println(r.expand(0, 0, 1, -1));
+//        Region r = new Region(new Position(1, 1), new Position(2, 2), 5);
+//        System.out.println(r.expand(1, 0, 0, 0));
+//        System.out.println(r.expand(0, 0, 1, -1));
 
-        
+
     }
 }
