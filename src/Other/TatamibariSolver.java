@@ -19,7 +19,8 @@ Expected output:
     4 5 5 5
 
 where each number represents a different rectangle
-numbers don't have to be ordered or be in range [1 ... number of Regions]
+A single Tatamibari puzzle may have multiple solutions
+Numbers don't have to be ordered or be in range [1 ... number of Regions]
  */
 
 
