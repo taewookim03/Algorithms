@@ -1,7 +1,8 @@
-package IMC_codility;
+package some_codility_challenge;
 
 /**
  * Created by Taewoo Kim on 2/11/2017.
+ * for an interview coding challenge
  */
 public class q1 {
     static public int solution(String S) {

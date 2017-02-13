@@ -1,4 +1,4 @@
-package sailthru_challenge;
+package some_hr_challenge;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -7,6 +7,7 @@ import java.util.StringTokenizer;
 
 /**
  * Created by Taewoo Kim on 2/8/2017.
+ * for an interview coding challenge
  */
 public class p1 {
 

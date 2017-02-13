@@ -1,10 +1,9 @@
-package sailthru_challenge;
-import java.io.BufferedWriter;
-import java.io.FileWriter;
+package some_hr_challenge;
 import java.io.IOException;
 import java.util.*;
 /**
  * Created by Taewoo Kim on 2/8/2017.
+ * for an interview coding challenge
  * given an array of positive numbers, find the minimum sum of the array such that all elements are unique.
  * elements may only be increased (once)
  */
