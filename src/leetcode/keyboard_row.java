@@ -9,7 +9,7 @@ import java.util.*;
  You may use one character in the keyboard more than once.
  You may assume the input string will only contain letters of alphabet.
  */
-public class weekly_contest_18a_keyboard_row {
+public class keyboard_row {
     public class Solution {
         String row1 = "qwertyuiop";
         String row2 = "asdfghjkl";

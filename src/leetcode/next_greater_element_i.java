@@ -23,7 +23,7 @@ package leetcode;
  All elements in nums1 and nums2 are unique.
  The length of both nums1 and nums2 would not exceed 1000.
  */
-public class weekly_contest_18b_next_greater_element_i {
+public class next_greater_element_i {
     //simple brute force
     public class Solution {
         public int[] nextGreaterElement(int[] findNums, int[] nums) {

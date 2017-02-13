@@ -18,7 +18,7 @@ import java.util.Queue;
  All the sores of athletes are ensure to be unique.
  *
  */
-public class weekly_contest_18b_relative_ranks {
+public class relative_ranks {
     public class Solution {
         public String[] findRelativeRanks(int[] nums) {
             if (nums.length == 0) return new String[]{};

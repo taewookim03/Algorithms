@@ -19,7 +19,7 @@ package leetcode;
  Note:
  The total number of elements of the given matrix will not exceed 10,000.
  */
-public class weekly_contest_18b_diagonal_traverse {
+public class diagonal_traverse {
     public class Solution {
         public int[] findDiagonalOrder(int[][] matrix) {
             if (matrix.length == 0 || matrix[0].length == 0) return new int[]{};

@@ -30,7 +30,7 @@ import java.util.stream.Collectors;
  * }
  */
 
-public class weekly_contest_18a_most_frequent_sum{
+public class most_frequent_sum {
     class Solution {
         public class TreeNode{
             int val;

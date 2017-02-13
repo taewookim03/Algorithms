@@ -25,7 +25,7 @@ import java.util.Queue;
  The length of Profits array and Capital array will not exceed 50,000.
  The answer is guaranteed to fit in a 32-bit signed integer.
  */
-public class weekly_contest_18a_IPO {
+public class IPO {
     //using 2 priority queues (GREEDY)
     //look at every possible project (Ci <= W) and pick the one with the largest profit Pi. Repeat with new capital W, k times
     public class Solution {

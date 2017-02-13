@@ -5,7 +5,7 @@ import java.util.ArrayDeque;
 /**
  * Created by Taewoo Kim on 2/4/2017.
  */
-public class weekly_contest_18b_next_greater_element_ii {
+public class next_greater_element_ii {
     //AC brute force
     public int[] nextGreaterElements2(int[] nums) {
         int  n = nums.length;
