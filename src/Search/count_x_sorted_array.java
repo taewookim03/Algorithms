@@ -28,7 +28,7 @@ public class count_x_sorted_array {
 
         int left = 0;
         int right = n-1;
-        int mid = -1;
+        int mid = 0;//compiler might complain if not initialized
         while (left <= right){
             mid = (left+right)/2;
             //check if mid meets condition
