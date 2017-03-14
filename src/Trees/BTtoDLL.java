@@ -52,7 +52,16 @@ class Solution{
         // Driver program to test above functions
         public static void main(String[] args)
         {
-            // Let us create the tree as shown in above diagram
+            BinaryTree tree1 = new BinaryTree();
+            tree1.root = new Node(1);
+            tree1.root.left = new Node(2);
+            tree1.root.right = new Node(5);
+            tree1.root.left.left = new Node(3);
+            tree1.root.left.right = new Node(4);
+            tree1.root.right.left = new Node(7);
+            tree1.root.right.left.left = new Node(8);
+
+            /*
             BinaryTree tree = new BinaryTree();
             tree.root = new Node(10);
             tree.root.left = new Node(12);
@@ -60,19 +69,20 @@ class Solution{
             tree.root.left.left = new Node(25);
             tree.root.left.right = new Node(30);
             tree.root.right.left = new Node(36);
+            */
 
             // convert to DLL
-            tree.head = tree.BinaryTree2DoubleLinkedList(tree.root, null);
+            tree1.head = tree1.BinaryTree2DoubleLinkedList(tree1.root, null);
 
             // Print the converted List
-            tree.printList(tree.head);
+            tree1.printList(tree1.head);
 
             // print reverse
-            Node n = tree.head;
+            Node n = tree1.head;
             while (n.right != null){
                 n = n.right;
             }
-            tree.printListRev(n);
+            tree1.printListRev(n);
         }
     }
 }

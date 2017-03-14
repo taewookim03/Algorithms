@@ -14,6 +14,10 @@ class flatten {
         Map map1 = new HashMap();
         map1.put("a", "2");
         map1.put("b", "3");
+        Map map2 = new HashMap();
+        map2.put("d", "3");
+        map2.put("e", "1");
+        map1.put("c", map2);
 
         map.put("key2", map1);
 
