@@ -4,6 +4,39 @@ package leetcode;
  * Created by Taewoo Kim on 1/31/2017.
  */
 public class longest_palindromic_substring {
+    //more intuitive solution of extending (the bottom solution refactored)
+    public class Solution3{
+        //static
+        int max;
+        //static
+        int begin;
+
+        public String longestPalindrome(String s){
+            int n = s.length();
+            if (n < 2) return s;
+
+            max = 0;
+            begin = 0;
+
+            for (int i = 0; i < n-1; i++){
+                extend(s, i, i);
+                extend(s, i, i+1);
+            }
+            return s.substring(begin, begin+max);
+        }
+        private void extend(String s, int left, int right){
+            while (left >= 0 && right < s.length() && s.charAt(left) == s.charAt(right)){
+                left--;
+                right++;
+            }
+            int len = right - left - 1;
+            if (len > max){
+                max = len;
+                begin = left+1;
+            }
+        }
+    }
+
     //same complexity but clever solution
     /*
     Example: "xxxbcbxxxxxa", (x is random character, not all x are equal) now we
