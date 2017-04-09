@@ -17,11 +17,7 @@ public class anagrams {
                 sortedMap.get(sorted).add(str);
             }
 
-
-            List<List<String>> result = new ArrayList<>();
-            for (Map.Entry<String, List<String>> entry : sortedMap.entrySet()){
-                result.add(entry.getValue());
-            }
+            List<List<String>> result = new ArrayList<>(sortedMap.values());
             return result;
         }
 

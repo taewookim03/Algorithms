@@ -14,7 +14,7 @@ class CoinChange {
         for (int j = 0; j <= val; j++){
             m[0][j] = j / coins[0];
         }
-        //fill the initial column (if value is 0, 0 ways to make the change)
+        //fill the initial column (if value is 0, use 0 coins)
         for (int i = 0; i < coins.length; i++){
             m[i][0] = 0;
         }
