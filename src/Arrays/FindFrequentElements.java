@@ -47,7 +47,7 @@ class FindFrequentElements {
         }
         System.out.println();
 
-        //naive O(nk)
+        //naive O(n) space
 //        /*
 //        for (Integer key : freq.keySet()){
 //            int count = 0;

@@ -1,5 +1,5 @@
 package leetcode;
-
+import java.util.*;
 /**
  * Created by Taewoo Kim on 4/1/2017.
  */
@@ -12,9 +12,47 @@ public class serialize_and_deserialize_bst {
         }
     }
 
-
-    //O(n^2) BST insert vs O(n) boundary method - deserialize
+    //O(n) works for binary tree as well
     public class Codec {
+
+        // Encodes a tree to a single string.
+        public String serialize(TreeNode root) {
+            StringBuilder sb = new StringBuilder();
+            serializeUtil(root, sb);
+            return sb.toString();
+        }
+        void serializeUtil(TreeNode node, StringBuilder sb){
+            if (node == null){
+                sb.append("n ");
+                return;
+            }
+            sb.append(node.val + " ");
+            serializeUtil(node.left, sb);
+            serializeUtil(node.right, sb);
+        }
+
+        // Decodes your encoded data to tree.
+        public TreeNode deserialize(String data) {
+            String[] strs = data.split(" ");
+            Queue<String> queue = new LinkedList<>();
+            for (String s : strs) queue.add(s);
+            return deserializeUtil(queue);
+        }
+        TreeNode deserializeUtil(Queue<String> queue){
+            String first = queue.remove();
+            if (first.equals("n")) return null;
+
+            TreeNode node = new TreeNode(Integer.parseInt(first));
+            node.left = deserializeUtil(queue);
+            node.right = deserializeUtil(queue);
+            return node;
+        }
+    }
+
+
+
+    //O(n^2) BST insert vs O(nlogn) boundary method - deserialize
+    public class Codec2 {
 
         // Encodes a tree to a single string.
         public String serialize(TreeNode root) {
