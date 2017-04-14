@@ -31,42 +31,31 @@ import java.util.stream.Collectors;
  */
 
 public class most_frequent_sum {
-    class Solution {
-        public class TreeNode{
-            int val;
-            TreeNode left, right;
-        }
+    public class TreeNode{
+        int val;
+        TreeNode left, right;
+    }
+    public class Solution {
         public int[] findFrequentTreeSum(TreeNode root) {
             if (root == null) return new int[0];
             Map<Integer,Integer> freqMap = new HashMap<>();
             treeSum(root, freqMap);
+            int maxFreq = Collections.max(freqMap.values());
+            List<Integer> list = freqMap.entrySet().stream().filter(e->e.getValue().equals(maxFreq)).map(e->e.getKey()).collect(Collectors.toList());
 
-            //find max freq
-            //Integer maxFreq = Collections.max(freqMap.entrySet(), Comparator.comparingInt(e->e.getValue())).getValue();
-            Integer maxFreq = Collections.max(freqMap.entrySet(), (a,b)->a.getValue()-b.getValue()).getValue();
-            //Integer maxFreq = Collections.max(freqMap.entrySet(), Comparator.comparingInt(Map.Entry::getValue)).getValue();
-            List<Integer> result = freqMap.entrySet().stream().filter(e -> e.getValue().equals(maxFreq)).map(e->e.getKey()).collect(Collectors.toList());
-
-            int[] arr = new int[result.size()];
-            int i = 0;
-            for (Integer num : result){
-                arr[i++] = num;
+            int[] arr = new int[list.size()];
+            for (int i = 0; i < list.size(); i++){
+                arr[i] = list.get(i);
             }
             return arr;
         }
 
-        //think int works as well
-        Integer treeSum(TreeNode node, Map<Integer, Integer> freqMap){
-            if (node == null) return null;
+        int treeSum(TreeNode node, Map<Integer, Integer> freqMap){
+            if (node == null) return 0;
 
-            Integer left = treeSum(node.left, freqMap);
-            Integer right = treeSum(node.right, freqMap);
-
-            //get subtree sum at this node
-            Integer sum = node.val;
-            if (left != null) sum += left;
-            if (right != null) sum += right;
-
+            int left = treeSum(node.left, freqMap);
+            int right = treeSum(node.right, freqMap);
+            int sum = node.val + left + right;
             freqMap.put(sum, freqMap.getOrDefault(sum, 0) + 1);
             return sum;
         }

@@ -15,18 +15,17 @@ class BacktrackPermutations {
             System.out.println(str);
         }
 
-        //consider all other elements regardless of order to swap with
         for (int i = k; i < str.length(); i++){
             //swap char between i and k, but backtrack not necessary since java strings are immutable
-
-            //recur
-            perm(swap(str, i, k), k + 1);
+            if (i != k && str.charAt(i) == str.charAt(k)) continue;//avoid duplicates
+            str = swap(str, i, k);
+            perm(str, k + 1);
         }
 
     }
 
     public static void main(String[] args){
-        String s = "ABC";
+        String s = "ABB";
         perm(s, 0);
     }
 }
