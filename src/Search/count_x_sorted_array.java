@@ -4,7 +4,6 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 /**
- * Created by Taewoo Kim on 2/10/2017.
  * Given a sorted array of numbers, write a function to find how many times x occurs in it.
  */
 public class count_x_sorted_array {
